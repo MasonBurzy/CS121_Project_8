@@ -5,10 +5,10 @@ import java.util.Scanner;
 
 
 public class Guesser {
-	public static void main(String[] args) {
-		Scanner scanner = new Scanner(System.in);
-		Random random = new Random();
+	private static final Scanner scanner = new Scanner(System.in);
+	private static final Random random = new Random();
 
+	public static void main(String[] args) {
 		while (true) {
 			System.out.println("0) Exit");
 			System.out.println("1) Human Guesser");
@@ -22,7 +22,7 @@ public class Guesser {
 				break;
 			} else if (response.equals("1")) {
 				humanGuesser();
-			} else if (response.equals(2)) {
+			} else if (response.equals("2")) {
 				computerGuesser();
 			} else {
 				System.out.println("Invalid choice. Try again.");
@@ -30,11 +30,11 @@ public class Guesser {
 
 		} // end while
 
-		// scanner.close();
+		scanner.close();
 	
-	} // end static void
+	} // end void
 
-	public void humanGuesser(){
+	public static void humanGuesser(){
 		int target = random.nextInt(100) + 1;
 		int attempts = 0;
 		System.out.println("Human Guesser");
@@ -59,13 +59,13 @@ public class Guesser {
 	} // end humanGuesser
 
 
-	private int getMean(int lower, int upper){
+	private static int getMean(int lower, int upper){
 		int mean = (int)((lower + upper)/2);
 		return mean;
 
 	} // end getMean
 
-	public void computerGuesser(){
+	public static void computerGuesser(){
 		int lower = 1;
 		int upper = 100;
 		int guess = getMean(lower, upper);
@@ -78,7 +78,16 @@ public class Guesser {
 
 			System.out.println(turns + ") I guess " + guess);
 			System.out.print("Too (H)igh, too (L)ow, or (C)orrect");
-			response = input.nextLine();
+			response = scanner.nextLine().toLowerCase();
+
+			if (response.equals("h")) {
+				upper = guess -1;
+				guess = getMean(lower, upper);
+			} else if (response,equals("l")) {
+				lower = guess +1;
+				guess = getMean(lower, upper);
+			} else if (response.equals("c")) {
+				System.out.println("Yay! The computer guessed your number")
 		} // end while	
 
 	} // computerGuesser
